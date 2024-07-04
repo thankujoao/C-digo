@@ -1,0 +1,79 @@
+# Função para imprimir o catálogo de filmes
+def imprimir_catalogo(catalogo): # Define uma função de imprimir o catálogo de filmes
+    if not catalogo: # Serve para verificar se o espaço (catálogo) está vazio (SE)
+        print("O catálogo está vazio.") # Se for verdadeiro, o programa mostrará essa mensagem indicando que o catálogo está vazio
+    else: # Caso o catálogo não esteja vazio (SE NÃO)
+        print("Catálogo de Filmes:") # Imprime o título do catálogo
+        for titulo, info in catalogo.items(): # Serve para iterar acerca de cada filme presente e suas informações
+            print(f"Título: {titulo}") # Imprime o título do filme
+            print(f"  Diretor: {info['diretor']}") # Imprime o diretor do filme
+            print(f"  Ano de Lançamento: {info['ano']}") # Imprime o ano de lançamento do filme
+            print(f"  Gênero: {info['genero']}") # Imprime o gênero do filme
+            print() # Serve para imprimir uma linha em branco para que haja separação entre o filme e suas informações
+
+# Função principal do programa
+def main(): # Define a função principal do programa
+    catalogo = {} # Começa um novo dicionário vazio para guardar o catálogo de filmes
+
+    while True: # Serve como um loop infinito que mantém o programa rodando enquanto o usuário não decida sair
+        print("\nFILMOTECA PYTHON") # Imprime o nome do programa
+        print("Seja muito bem-vindo(a) ao FILMOTECA PYTHON! Como podemos te ajudar?") # Imprime mensagem de boas-vindas ao usuário
+        print("1. Adicionar novo filme") # Imprime opção de adicionar novo filme
+        print("2. Atualizar informações de um filme") # Imprime opção de atualizar informações de algum filme presente no catálogo
+        print("3. Remover filme do catálogo") # Imprime opção de remover filme do catálogo
+        print("4. Visualizar catálogo de filmes") # Imprime opção de visualizar todo o catálogo de filmes
+        print("5. Sair do programa") # Imprime opção de sair do programa
+
+        opcao = input("Escolha uma opção: ") # Pede para que o usuário escolha uma das opções (enumeradas de 1 a 5)
+
+        if opcao == '1': # Caso o usuário escolha a opção 1 (SE)
+            titulo = input("Digite o título do filme: ") # Pede para que o usuário digite o título do filme
+            diretor = input("Digite o nome do diretor: ") # Pede para que o usuário digite o nome do diretor
+            ano = input("Digite o ano de lançamento: ") # Pede para que o usuário digite o ano de lançamento
+            genero = input("Digite o gênero do filme: ") # Pede para que o usuário digite o gênero do filme
+
+            catalogo[titulo] = {
+                'diretor': diretor,
+                'ano': ano,
+                'genero': genero
+            } # Serve para guardar o filme e todas as suas informações no catálogo
+            print(f"Filme '{titulo}' adicionado ao catálogo.") # Confirmação de que o filme foi adicionado ao catálogo
+
+        elif opcao == '2': # Caso o usuário escolha a opção 2
+            titulo = input("Digite o título do filme que deseja atualizar: ") # Pede para que o usuário digite o título do que deseja atualizar (o filme deve estar presente no catálogo)
+            if titulo in catalogo: # Analisa se o título do filme está presente no catálogo
+                diretor = input(f"Novo diretor ({catalogo[titulo]['diretor']}): ") or catalogo[titulo]['diretor'] # Pede para que o usuário digite o novo diretor, caso o campo fique vazio a informação anteriormente fornecida será mantida
+                ano = input(f"Novo ano de lançamento ({catalogo[titulo]['ano']}): ") or catalogo[titulo]['ano'] # Pede para que o usuário digite o novo ano de lançamento, caso o campo fique vazio a informação anteriormente fornecida será mantida
+                genero = input(f"Novo gênero ({catalogo[titulo]['genero']}): ") or catalogo[titulo]['genero'] # Pede para que o usuário digite o novo gênero do filme, caso o campo fique vazio a informação anteriormente fornecida será mantida
+
+                catalogo[titulo] = {
+                    'diretor': diretor,
+                    'ano': ano,
+                    'genero': genero
+                } # Serve para guardar todas as informações atualizadas
+                print(f"Informações do filme '{titulo}' atualizadas.") # Confirmação de que as informações do filme selecionado foram atualizadas
+            else: # Caso o filme não seja encontrado no catálogo (SE NÃO)
+                print(f"Filme '{titulo}' não encontrado no catálogo. Caso deseje adicionar esse filme no seu catálogo, digite a opção 1") # Aviso de que o filme que não está no catálogo
+
+        elif opcao == '3': # Caso o usuário escolha a opção 3
+            titulo = input("Digite o título do filme que deseja remover: ") # Pede para que o usuário digite o título do filme que deseja remover
+            if titulo in catalogo: # Analisa se o título do filme está presente no catálogo
+                del catalogo[titulo] # Função de remover o filme do catálogo
+                print(f"Filme '{titulo}' removido do catálogo.") # Confirmação de que o filme selecionado foi removido
+            else: # Caso o título não seja encontrado (SE NÃO)
+                print(f"Filme '{titulo}' não encontrado no catálogo.") # Aviso de que o filme não está no catálogo
+
+        elif opcao == '4': # Caso o usuário escolha a opção 4
+            imprimir_catalogo(catalogo) # Função em que o programa exibirá todo o catálogo de filmes criado pelo usuário
+
+        elif opcao == '5': # Caso o usuário escolha a opção 5
+            print("Muito obrigado por nos escolher! Volte sempre! ;)") # Mensagem de despedida ao programa ser encerrado
+            break # Função que termina o loop infinito e encerra o programa
+
+        else: # Caso a opção digitada seja inexistente (SE NÃO)
+            print("Opção inválida. Por favor, digite uma opção válida.") # Aviso de que a opção digitada é inválida, ou seja, não está presente nos dados do programa
+
+def iniciar_programa(): # Define função de iniciar o programa
+    main() # Inicia o loop principal do programa
+
+iniciar_programa() # Chama a função iniciar_programa() para executar o programa
